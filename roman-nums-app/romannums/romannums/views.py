@@ -21,6 +21,7 @@ def index(request):
             val = convert_d_to_r(int(request.POST.get('decimal')))
             return render(request, 'index.html', {'value': val})
         except ValueError:
+            messages.error(request, "Unable to process conversion request.")
             return render(request, 'index.html')
 
     else:

@@ -2,6 +2,9 @@ from django.shortcuts import render
 from .romannumerals import *
 from django.contrib import messages
 
+# Decided not to implement a form class because of a lack of validating model.  Used the messaging system
+# instead to communicate up flash messages for the error.
+
 def index(request):
 
     if request.method == "POST":

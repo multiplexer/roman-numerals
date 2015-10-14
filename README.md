@@ -1,2 +1,2 @@
 # roman-numerals
-Demonstration of converting decimals to roman numerals in a Django app
+This little application will accept a decimal between 1 and 3999 and return the Roman conversion.  

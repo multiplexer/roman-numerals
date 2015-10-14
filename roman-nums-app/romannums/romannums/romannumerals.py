@@ -1,8 +1,12 @@
-# Requires PEP8 checking for style -- automatically enabled in pycharm.
 import unittest
 
-def recurse_d_to_r(val, roman, decimals, romanNumerals):
+# Requires PEP8 checking for style -- automatically enabled in pycharm.
+#
+# This little library performs both the transform from roman numerals to decimals and decimals
+# to roman numerals.  The simpler transform is simply iterative adds and subtracts.  The more difficult
+# can be solved elegantly with a little fancy recursion.
 
+def recurse_d_to_r(val, roman, decimals, romanNumerals):
     # Functional programming version.  We solve for the smallest case and then the common case.
     # If val is less than the current head of the decimals list then we keep recursing the list.
     # If val is equal or greater, we have a hit. We move the value from the roman numerals into our accumulator string and
@@ -16,13 +20,12 @@ def recurse_d_to_r(val, roman, decimals, romanNumerals):
             return recurse_d_to_r(val, roman, decimals[1:], romanNumerals[1:])
         else:
             # Remove the current decimal value from the val, attach the roman letter, recurse the data structure
-            return recurse_d_to_r(val-decimals[0], roman+romanNumerals[0], decimals, romanNumerals)
+            return recurse_d_to_r(val - decimals[0], roman + romanNumerals[0], decimals, romanNumerals)
     else:
         return roman
 
+
 def convert_d_to_r(val):
-
-
     # The setup.  This is all the valid 1 and 2 letter combos available.
 
     decimals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
@@ -35,6 +38,7 @@ def convert_d_to_r(val):
         raise ValueError
 
     return recurse_d_to_r(val, "", decimals, romanNumerals)
+
 
 def convert_r_to_d(roman):
     # Algorithm for convert roman to decimal is to read the string, reverse the string, read right from left.
@@ -63,7 +67,13 @@ def convert_r_to_d(roman):
 
     return accumulator
 
+
 class DecToRomanTest(unittest.TestCase):
+    def testSmallestRomanToDecimal(self):
+        self.assertEqual('1', convert_r_to_d("I"))
+
+    def testRomanToDecimal(self):
+        self.assertEqual('1365', convert_r_to_d("MCCCLXV"))
 
     def testSmallest(self):
         self.assertEqual('I', convert_d_to_r(1))
@@ -107,6 +117,6 @@ class DecToRomanTest(unittest.TestCase):
     def testMMMCMXCIX(self):
         self.assertEqual('MMMCMXCIX', convert_d_to_r(3999))
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     unittest.main()
